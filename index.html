@@ -3,72 +3,83 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#176cff">
-<title>Our Messenger 3.0 💙</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080d19">
+<title>Our Messenger 4.0</title>
 <style>
+:root{
+ --bg:#080d19;--panel:#111a2b;--panel2:#17243a;
+ --blue:#398bff;--cyan:#42d9ff;--text:#edf4ff;
+ --muted:#8fa3bf;--border:#263752;--danger:#f05269;
+}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#eef4ff;color:#17243a}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
 button,input{font:inherit}
-button{border:0;cursor:pointer}
+button{border:0;cursor:pointer;transition:.2s}
+button:disabled{opacity:.5;cursor:not-allowed}
 .hidden{display:none!important}
-button:disabled{opacity:.5}
-#auth{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(145deg,#0757cf,#168cff,#b8dcff)}
-.authbox{background:white;border-radius:25px;padding:26px;width:100%;max-width:390px;box-shadow:0 20px 60px #003d8b33}
-.logo{text-align:center;font-size:48px}
-h1{text-align:center;color:#087bfa}
-.field{width:100%;padding:14px;border:1px solid #dfe8f5;border-radius:13px;margin:7px 0;background:#f8faff}
-.primary{background:#087bfa;color:white;padding:13px 18px;border-radius:13px;font-weight:bold}
-.secondary{background:#eaf3ff;color:#087bfa;padding:12px;border-radius:12px}
+#auth{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at 20% 15%,#164a83 0,transparent 40%),linear-gradient(145deg,#080d19,#111c31)}
+.authbox{width:100%;max-width:390px;padding:28px;background:#111a2bf2;border:1px solid #344a69;border-radius:25px;box-shadow:0 25px 80px #0009}
+.logo{text-align:center;font-size:55px;filter:drop-shadow(0 0 20px #398bff)}
+h1{text-align:center;color:#67baff;letter-spacing:1px}
+.authbox p{text-align:center;color:var(--muted)}
+.field{width:100%;padding:15px;margin:7px 0;border-radius:12px;background:#0a1322;border:1px solid var(--border);color:white;outline:none}
+.field:focus,#message:focus{border-color:var(--blue)}
+.primary{background:linear-gradient(110deg,#2476f5,#36c5ff);color:white;padding:13px 18px;border-radius:12px;font-weight:bold}
+.secondary{background:#1c304c;color:#8ccaff;padding:12px;border-radius:12px}
 .authbox button{width:100%;margin-top:10px}
-#app{display:none;max-width:1100px;margin:auto;height:100dvh;background:white;flex-direction:column;overflow:hidden}
-header{background:linear-gradient(110deg,#0867e9,#168cff);color:white;padding:11px 14px;display:flex;align-items:center;gap:10px}
-.avatar{width:43px;height:43px;border-radius:50%;background:#ffffff30;display:grid;place-items:center;font-size:22px}
+#switch{color:#69baff;margin-top:18px;text-align:center;cursor:pointer}
+#app{display:none;max-width:1100px;height:100dvh;margin:auto;background:var(--bg);flex-direction:column;overflow:hidden}
+header{padding:12px 15px;display:flex;align-items:center;gap:10px;background:#111b2d;border-bottom:1px solid var(--border)}
+.avatar{width:44px;height:44px;flex-shrink:0;border-radius:15px;background:linear-gradient(140deg,#1767cf,#41d9ff);display:grid;place-items:center;font-size:23px}
 .headinfo{flex:1;min-width:0}
 .headinfo strong{font-size:16px}
-.headinfo small{display:block;margin-top:4px;color:#dceaff}
-.icon{width:39px;height:39px;border-radius:50%;background:#ffffff25;color:white;font-size:18px}
+.headinfo small{display:block;color:#6fc9ff;margin-top:4px;font-size:11px}
+.icon{width:39px;height:39px;flex-shrink:0;border-radius:12px;background:#20324b;color:#8acbff;font-size:17px}
 #chat{display:flex;flex:1;min-height:0;flex-direction:column}
-#roominfo{padding:9px 13px;background:#edf5ff;color:#087bfa;font-size:12px;display:flex;justify-content:space-between;gap:8px}
-#messages{flex:1;min-height:0;overflow:auto;padding:14px;background:#f3f7fc;display:flex;flex-direction:column;gap:10px;background-size:cover;background-position:center}
+#roominfo{padding:10px 14px;background:#101a2a;display:flex;justify-content:space-between;color:#91b8e5;font-size:12px}
+#messages{flex:1;min-height:0;overflow-y:auto;padding:15px;display:flex;flex-direction:column;gap:12px;background:radial-gradient(ellipse at top,#12223b,#080d19 75%)}
 .msg{max-width:85%;align-self:flex-start}
 .msg.mine{align-self:flex-end}
-.sender{font-size:11px;color:#8290a0;margin:0 7px 4px}
-.bubble{background:white;padding:11px 14px;border-radius:17px;line-height:1.45;overflow-wrap:anywhere;box-shadow:0 2px 5px #0000000a}
-.mine .bubble{background:#087bfa;color:white;border-bottom-right-radius:5px}
-.bubble img{max-width:100%;max-height:280px;border-radius:12px;display:block}
-.bubble audio{width:220px;max-width:100%}
-.sticker{font-size:42px;background:transparent;box-shadow:none}
-.meta{font-size:10px;color:#8a96a7;margin:5px}
-.actions{display:flex;flex-wrap:wrap;gap:4px;margin:4px}
-.actions button{background:white;color:#087bfa;border:1px solid #e5ebf3;padding:6px 8px;border-radius:9px;font-size:11px}
-#reply{padding:9px 13px;background:#e8f3ff;color:#087bfa;font-size:12px}
-#composer{padding:9px;display:flex;gap:6px;align-items:center;border-top:1px solid #edf0f5}
-#composer input{flex:1;min-width:0;padding:13px;border:0;border-radius:25px;background:#f1f4f9}
-.round{width:39px;height:39px;flex-shrink:0;border-radius:50%;background:#eaf3ff;color:#087bfa;font-size:18px}
-#send{background:#087bfa;color:white}
-#stickers{display:none;grid-template-columns:repeat(6,1fr);gap:7px;padding:10px;background:white}
-#stickers button{padding:8px;background:#f1f5fa;border-radius:10px;font-size:25px}
-.panel{display:none;padding:12px;background:white;border-top:1px solid #eee}
-.panel button{padding:9px;border-radius:10px;background:#edf4ff;color:#087bfa;margin:3px}
-#nav{display:flex;justify-content:space-around;padding:9px;border-top:1px solid #eee}
-#nav button{background:none;color:#718096}
-#toast{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;background:#152a45;color:white;padding:12px 18px;border-radius:13px;max-width:90%;font-size:13px}
-#modal{display:none;position:fixed;inset:0;background:#0009;z-index:100;align-items:center;justify-content:center;padding:17px}
-.modalbox{width:100%;max-width:390px;background:white;border-radius:22px;padding:22px}
-.modalbox h2{margin-top:0;color:#087bfa}
-.modalbox button{margin:4px}
-#call{display:none;position:fixed;inset:0;background:#101b2c;color:white;z-index:80;flex-direction:column;align-items:center;justify-content:center;padding:15px;gap:12px}
-#remote{width:100%;max-width:700px;max-height:65vh;background:#293a52;border-radius:16px;object-fit:contain}
-#local{position:absolute;right:18px;bottom:110px;width:25%;max-height:130px;border:2px solid white;border-radius:12px}
-.controls{display:flex;gap:13px;flex-wrap:wrap;justify-content:center}
-.controls button{width:53px;height:53px;border-radius:50%;font-size:21px;background:#34445a;color:white}
-.controls .end{background:#e83c55}
-#incoming{display:none;position:fixed;inset:0;background:#0009;z-index:110;align-items:center;justify-content:center}
-#incoming .modalbox{text-align:center}
-#shareView{display:none;position:fixed;inset:0;background:#101b2c;color:white;z-index:70;flex-direction:column;align-items:center;justify-content:center;padding:15px}
-#shareVideo{width:100%;max-height:75vh;object-fit:contain;background:#293a52}
-@media(min-width:700px){#app{height:96dvh;margin:2dvh auto;border-radius:18px;box-shadow:0 8px 45px #193d701a}}
+.sender{font-size:11px;color:#8fa3bf;margin:0 7px 5px}
+.bubble{padding:12px 15px;background:#18263c;border:1px solid #293e5c;border-radius:17px;line-height:1.5;overflow-wrap:anywhere}
+.mine .bubble{background:linear-gradient(130deg,#1766c8,#176eae);border-color:#398bff;border-bottom-right-radius:5px}
+.bubble img{max-width:100%;max-height:300px;border-radius:12px;display:block}
+.bubble audio{max-width:100%;width:230px}
+.sticker{font-size:42px;background:transparent;border:0}
+.meta{font-size:10px;color:#8195af;margin:5px}
+.actions{display:flex;flex-wrap:wrap;gap:5px;margin:5px}
+.actions button{background:#17243a;color:#85caff;border:1px solid #304563;padding:6px 9px;border-radius:9px;font-size:11px}
+#reply{padding:10px;background:#162c47;color:#79c9ff;font-size:12px}
+#composer{padding:10px;display:flex;align-items:center;gap:7px;background:#111a2b;border-top:1px solid var(--border)}
+#message{flex:1;min-width:0;padding:13px 16px;background:#0a1322;color:white;border:1px solid #263752;border-radius:25px;outline:none}
+.round{width:40px;height:40px;flex-shrink:0;border-radius:50%;background:#20334e;color:#8acbff;font-size:18px}
+#send{background:linear-gradient(130deg,#2679f7,#32baff);color:white}
+#stickers{display:none;grid-template-columns:repeat(6,1fr);gap:7px;padding:12px;background:#111a2b}
+#stickers button{padding:8px;background:#1c2b42;border-radius:10px;font-size:24px}
+.panel{display:none;padding:13px;background:#111a2b;border-top:1px solid var(--border)}
+.panel button{padding:9px;border-radius:10px;background:#1e3450;color:#9bd1ff;margin:4px}
+#nav{display:flex;justify-content:space-around;padding:10px;background:#111a2b;border-top:1px solid var(--border)}
+#nav button{background:none;color:#91b9e5}
+#modal{display:none;position:fixed;inset:0;background:#000c;z-index:100;align-items:center;justify-content:center;padding:18px}
+.modalbox{width:100%;max-width:390px;background:#111d30;border:1px solid #3c5678;border-radius:22px;padding:23px;box-shadow:0 20px 70px #0009}
+.modalbox h2{color:#71c5ff;margin-top:0}
+.modalbox p{color:#a1b3ca;line-height:1.5;font-size:13px}
+.choice{display:flex;align-items:center;justify-content:space-between;padding:14px;margin:10px 0;background:#1a2a42;border-radius:13px}
+.choice input{width:20px;height:20px;accent-color:#398bff}
+#modal .primary{width:100%;margin-top:12px}
+#toast{display:none;position:fixed;bottom:25px;left:50%;transform:translateX(-50%);z-index:300;background:#1b304b;color:white;padding:13px 18px;border:1px solid #42638b;border-radius:12px;max-width:90%;font-size:13px}
+#call,#shareView{display:none;position:fixed;inset:0;background:#080d19;z-index:80;flex-direction:column;align-items:center;justify-content:center;padding:18px;gap:15px}
+#remote{width:100%;max-width:700px;max-height:65vh;background:#17243a;border-radius:18px;object-fit:contain}
+#local{position:absolute;right:18px;bottom:130px;width:25%;max-height:130px;border:2px solid #6cbaff;border-radius:12px}
+.controls{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.controls button{width:55px;height:55px;border-radius:50%;background:#20334e;color:white;font-size:21px}
+.controls .end{background:var(--danger)}
+#incoming{display:none;position:fixed;inset:0;background:#000c;z-index:110;align-items:center;justify-content:center;padding:18px}
+#shareVideo{width:100%;max-height:75vh;background:#17243a;object-fit:contain}
+#nav button{font-size:12px}
+@media(min-width:700px){#app{height:96dvh;margin:2dvh auto;border:1px solid #263752;border-radius:18px;box-shadow:0 15px 70px #0008}}
+@media(max-width:500px){header{gap:6px;padding:9px}.icon{width:34px;height:36px}.headinfo strong{font-size:14px}.avatar{width:38px;height:38px}}
 </style>
 </head>
 <body>
@@ -76,13 +87,13 @@ header{background:linear-gradient(110deg,#0867e9,#168cff);color:white;padding:11
 <section id="auth">
  <div class="authbox">
   <div class="logo">💙</div>
-  <h1>Our Messenger</h1>
-  <p style="text-align:center;color:#8290a2">Super Community 3.0</p>
+  <h1>OUR MESSENGER</h1>
+  <p>PREMIUM COMMUNITY 4.0</p>
   <input class="field" id="regName" placeholder="Tên hiển thị">
   <input class="field" id="username" placeholder="Tên đăng nhập">
   <input class="field" id="password" type="password" placeholder="Mật khẩu">
   <button class="primary" id="authBtn">Đăng ký</button>
-  <div id="switch" style="text-align:center;color:#087bfa;margin-top:15px;cursor:pointer">Đã có tài khoản? Đăng nhập</div>
+  <div id="switch">Đã có tài khoản? Đăng nhập</div>
  </div>
 </section>
 
@@ -93,35 +104,27 @@ header{background:linear-gradient(110deg,#0867e9,#168cff);color:white;padding:11
    <strong id="roomTitle">Our Community</strong>
    <small id="status">Đang kết nối...</small>
   </div>
-  <button class="icon" id="rename" title="Đổi tên">✏️</button>
-  <button class="icon" id="callBtn" title="Gọi thoại">📞</button>
-  <button class="icon" id="videoBtn" title="Gọi video">📹</button>
-  <button class="icon" id="shareBtn" title="Chia sẻ màn hình">🖥️</button>
+  <button class="icon" id="rename">✏️</button>
+  <button class="icon" id="callBtn">📞</button>
+  <button class="icon" id="videoBtn">📹</button>
+  <button class="icon" id="shareBtn">🖥️</button>
   <button class="icon" id="settingsBtn">⚙️</button>
  </header>
-
  <section id="chat">
-  <div id="roominfo">
-   <span id="online">🟢 Đang kết nối</span>
-   <span>Phòng chung 💙</span>
-  </div>
+  <div id="roominfo"><span id="online">🟢 Đang kết nối</span><span>Phòng chung 💙</span></div>
   <div id="messages"></div>
   <div id="reply" class="hidden"></div>
   <div id="stickers">
-   <button>❤️</button><button>🥰</button><button>😍</button>
-   <button>😘</button><button>🥺</button><button>😂</button>
-   <button>😭</button><button>🫶</button><button>🐻</button>
-   <button>🐰</button><button>🐱</button><button>🌹</button>
-   <button>💋</button><button>💗</button><button>🧸</button>
-   <button>💕</button><button>✨</button><button>💍</button>
+   <button>❤️</button><button>🥰</button><button>😍</button><button>😘</button><button>🥺</button><button>😂</button>
+   <button>😭</button><button>🫶</button><button>🐻</button><button>🐰</button><button>🐱</button><button>🌹</button>
+   <button>💋</button><button>💗</button><button>🧸</button><button>💕</button><button>✨</button><button>💍</button>
   </div>
   <div id="themePanel" class="panel">
    <b>🎨 Giao diện</b><br>
-   <button data-color="#f3f7fc">💙 Xanh</button>
-   <button data-color="#fff0f6">💕 Hồng</button>
-   <button data-color="#f0eaff">💜 Tím</button>
-   <button data-color="#e7f7ff">☁️ Trời</button>
-   <button data-color="#202938">🌙 Tối</button>
+   <button data-color="#080d19">🌙 Midnight</button>
+   <button data-color="#101a30">💙 Navy</button>
+   <button data-color="#25162d">💜 Purple</button>
+   <button data-color="#271621">💕 Rose</button>
    <p>Ảnh nền <input type="file" id="wallpaper" accept="image/*"></p>
    <button id="reset">Đặt lại</button>
   </div>
@@ -143,10 +146,10 @@ header{background:linear-gradient(110deg,#0867e9,#168cff);color:white;padding:11
 <div id="modal">
  <div class="modalbox">
   <h2>💙 Trước khi vào phòng</h2>
-  <p>Hãy chọn trạng thái thiết bị. Mặc định cả hai đều tắt.</p>
-  <label><input type="checkbox" id="micChoice"> 🎤 Bật micro</label><br><br>
-  <label><input type="checkbox" id="camChoice"> 📹 Bật camera</label>
-  <p style="font-size:12px;color:#8492a5">Bạn có thể thay đổi sau khi tham gia.</p>
+  <p>Micro và camera mặc định tắt. Bạn có thể chọn bật ngay hoặc vào phòng với cả hai thiết bị tắt.</p>
+  <label class="choice">🎤 Bật micro <input type="checkbox" id="micChoice"></label>
+  <label class="choice">📹 Bật camera <input type="checkbox" id="camChoice"></label>
+  <p>Trình duyệt sẽ hỏi quyền truy cập khi bạn chọn bật thiết bị.</p>
   <button class="primary" id="enter">Vào phòng chat</button>
  </div>
 </div>
@@ -161,19 +164,17 @@ header{background:linear-gradient(110deg,#0867e9,#168cff);color:white;padding:11
   <button class="end" id="endCall">📞</button>
  </div>
 </div>
-
 <div id="shareView">
  <h3>🖥️ Đang chia sẻ màn hình</h3>
  <video id="shareVideo" autoplay playsinline></video>
  <button class="primary" id="stopShare">Dừng chia sẻ</button>
 </div>
-
 <div id="incoming">
  <div class="modalbox">
   <h2>📞 Cuộc gọi đến</h2>
   <p id="caller">Có người đang gọi bạn</p>
   <button class="primary" id="accept">Trả lời</button>
-  <button class="primary" id="reject" style="background:#e83c55">Từ chối</button>
+  <button class="primary" id="reject" style="background:#e05269">Từ chối</button>
  </div>
 </div>
 <div id="toast"></div>
@@ -195,25 +196,22 @@ const firebaseConfig={
  measurementId:"G-XKJ3E3TDCF"
 };
 
-const appFB=initializeApp(firebaseConfig);
-const auth=getAuth(appFB),db=getDatabase(appFB),storage=getStorage(appFB);
+const fb=initializeApp(firebaseConfig);
+const auth=getAuth(fb),db=getDatabase(fb),storage=getStorage(fb);
 const $=id=>document.getElementById(id);
-const ROOM="community_main";
+const ROOM="community_main",roomPath="rooms/"+ROOM;
 const emailFor=u=>u+"@ourmessenger.app";
 let user=null,profile=null,isRegister=true,replyTo=null;
-let localStream=null,peer=null,activeCall=null,callUnsubs=[];
-let screenStream=null,recorder=null,audioChunks=[];
-let micOff=true,camOff=true,unsubs=[],callListener=null;
-const roomPath="rooms/"+ROOM;
+let localStream=null,peer=null,activeCall=null,callUnsubs=[],unsubs=[],callListener=null;
+let screenStream=null,recorder=null,audioChunks=[],micOff=true,camOff=true;
 
+const r=p=>ref(db,p);
 function toast(s){
  $("toast").textContent=s;$("toast").style.display="block";
  clearTimeout(window.toastTimer);
  window.toastTimer=setTimeout(()=>$("toast").style.display="none",3000);
 }
 function clean(s){return s.trim().toLowerCase()}
-function dbref(p){return ref(db,p)}
-function safeText(el,s){el.textContent=s||""}
 
 /* AUTH */
 $("switch").onclick=()=>{
@@ -231,183 +229,183 @@ $("authBtn").onclick=async()=>{
   if(isRegister){
    if(!n)return toast("Nhập tên hiển thị");
    const c=await createUserWithEmailAndPassword(auth,emailFor(u),p);
-   await set(dbref("users/"+c.user.uid),{username:u,displayName:n,createdAt:serverTimestamp()});
+   await set(r("users/"+c.user.uid),{username:u,displayName:n,createdAt:serverTimestamp()});
   }else await signInWithEmailAndPassword(auth,emailFor(u),p);
  }catch(e){toast(e.message)}
  finally{$("authBtn").disabled=false}
 };
+
 onAuthStateChanged(auth,async u=>{
  user=u;
  if(!u){
   $("auth").style.display="flex";$("app").style.display="none";return;
  }
  try{
-  const s=await get(dbref("users/"+u.uid));profile=s.val();
+  const s=await get(r("users/"+u.uid));profile=s.val();
   if(!profile){await signOut(auth);return}
   $("auth").style.display="none";$("app").style.display="flex";
   $("myName").textContent=profile.displayName;
-  const room=await get(dbref(roomPath+"/info"));
-  if(!room.exists())await set(dbref(roomPath+"/info"),{name:"Our Community 💙",createdAt:serverTimestamp()});
-  $("modal").style.display="flex";
+  const room=await get(r(roomPath+"/info"));
+  if(!room.exists())await set(r(roomPath+"/info"),{name:"Our Community 💙",createdAt:serverTimestamp()});
   $("micChoice").checked=false;$("camChoice").checked=false;
+  $("modal").style.display="flex";
   await loadRoom();
  }catch(e){toast("Không tải được tài khoản: "+e.message)}
 });
 
-/* ONE ROOM */
+/* ROOM */
 async function loadRoom(){
- const p=dbref(roomPath+"/presence/"+user.uid);
+ const p=r(roomPath+"/presence/"+user.uid);
  await onDisconnect(p).set({online:false,lastSeen:serverTimestamp()});
  await set(p,{name:profile.displayName,online:true,lastSeen:serverTimestamp()});
  unsubs.forEach(f=>f());unsubs=[];
- unsubs.push(onValue(dbref(roomPath+"/info"),s=>{
-  $("roomTitle").textContent=s.val()?.name||"Our Community";
- }));
- unsubs.push(onValue(dbref(roomPath+"/presence"),s=>{
+ unsubs.push(onValue(r(roomPath+"/info"),s=>$("roomTitle").textContent=s.val()?.name||"Our Community"));
+ unsubs.push(onValue(r(roomPath+"/presence"),s=>{
   const people=Object.values(s.val()||{}).filter(x=>x.online);
   $("online").textContent="🟢 "+people.length+" người online";
   $("status").textContent=people.map(x=>x.name).join(", ");
  }));
- const q=query(dbref(roomPath+"/messages"),limitToLast(100));
- unsubs.push(onValue(q,s=>render(s.val()||{})));
+ unsubs.push(onValue(query(r(roomPath+"/messages"),limitToLast(100)),s=>render(s.val()||{})));
  listenCalls();
 }
+
+/* PERMISSIONS */
+async function requestDevices(audio,video){
+ if(!navigator.mediaDevices?.getUserMedia)throw Error("Trình duyệt không hỗ trợ camera/micro. Hãy mở bằng HTTPS.");
+ return navigator.mediaDevices.getUserMedia({audio,video});
+}
 $("enter").onclick=async()=>{
- $("modal").style.display="none";
- micOff=!$("micChoice").checked;
- camOff=!$("camChoice").checked;
- if(!micOff||!camOff){
-  try{
-   localStream=await navigator.mediaDevices.getUserMedia({audio:!micOff,video:!camOff});
-   toast("Thiết bị đã sẵn sàng");
-  }catch(e){
-   micOff=true;camOff=true;toast("Không cấp được quyền thiết bị. Bạn sẽ vào với mic và camera tắt.");
+ $("enter").disabled=true;
+ try{
+  const audio=$("micChoice").checked,video=$("camChoice").checked;
+  if(audio||video){
+   localStream=await requestDevices(audio,video);
+   micOff=!audio;camOff=!video;
+   toast("Đã cấp quyền thiết bị");
+  }else{
+   micOff=true;camOff=true;
   }
- }
+  $("modal").style.display="none";
+ }catch(e){
+  micOff=true;camOff=true;
+  $("micChoice").checked=false;$("camChoice").checked=false;
+  toast("Không cấp được quyền. Bạn sẽ vào với mic và camera tắt.");
+  $("modal").style.display="none";
+ }finally{$("enter").disabled=false}
 };
 
 /* RENAME */
 $("rename").onclick=async()=>{
- const s=await get(dbref(roomPath+"/info"));
+ const s=await get(r(roomPath+"/info"));
  const name=prompt("Tên phòng mới:",s.val()?.name||"Our Community");
- if(name?.trim()){
-  await update(dbref(roomPath+"/info"),{name:name.trim()});
-  toast("Đã đổi tên phòng");
- }
+ if(name?.trim())await update(r(roomPath+"/info"),{name:name.trim()});
 };
 
 /* CHAT */
 async function send(text,type="text",extra={}){
  if(!text)return;
- await set(push(dbref(roomPath+"/messages")),{senderId:user.uid,name:profile.displayName,text,type,createdAt:serverTimestamp(),...extra});
+ await set(push(r(roomPath+"/messages")),{senderId:user.uid,name:profile.displayName,text,type,createdAt:serverTimestamp(),...extra});
 }
 $("send").onclick=async()=>{
- const text=$("message").value.trim();if(!text)return;
- try{await send(text,"text",replyTo?{reply:replyTo}:{});$("message").value="";replyTo=null;$("reply").classList.add("hidden")}
+ const t=$("message").value.trim();if(!t)return;
+ try{await send(t,"text",replyTo?{reply:replyTo}:{});$("message").value="";replyTo=null;$("reply").classList.add("hidden")}
  catch(e){toast("Không gửi được: "+e.message)}
 };
 $("message").onkeydown=e=>{if(e.key==="Enter")$("send").click()};
+
 function render(data){
- const area=$("messages"),wasBottom=area.scrollHeight-area.scrollTop-area.clientHeight<100;
+ const area=$("messages"),bottom=area.scrollHeight-area.scrollTop-area.clientHeight<100;
  area.innerHTML="";
  Object.entries(data).sort((a,b)=>(a[1].createdAt||0)-(b[1].createdAt||0)).forEach(([id,m])=>{
   const mine=m.senderId===user.uid,box=document.createElement("div");
   box.className="msg"+(mine?" mine":"");
   const sender=document.createElement("div");sender.className="sender";sender.textContent=mine?"Bạn":m.name||"Người dùng";
   const bubble=document.createElement("div");bubble.className="bubble";
-  if(m.recalled){bubble.textContent="🚫 Tin nhắn đã thu hồi"}
-  else if(m.reply){
-   const q=document.createElement("div");q.className="quote";q.textContent="↪ "+m.reply.name+": "+m.reply.text;bubble.append(q);
-  }
-  if(!m.recalled){
-   if(m.type==="image"){
-    const img=document.createElement("img");img.src=m.text;img.onclick=()=>window.open(m.text,"_blank");bubble.append(img);
-   }else if(m.type==="voice"){
-    const a=document.createElement("audio");a.controls=true;a.src=m.text;bubble.append(a);
-   }else if(m.type==="sticker"){bubble.classList.add("sticker");bubble.textContent=m.text}
+  if(m.recalled)bubble.textContent="🚫 Tin nhắn đã thu hồi";
+  else{
+   if(m.reply){const q=document.createElement("div");q.textContent="↪ "+m.reply.name+": "+m.reply.text;bubble.append(q)}
+   if(m.type==="image"){const img=document.createElement("img");img.src=m.text;img.onclick=()=>window.open(m.text,"_blank");bubble.append(img)}
+   else if(m.type==="voice"){const a=document.createElement("audio");a.controls=true;a.src=m.text;bubble.append(a)}
+   else if(m.type==="sticker"){bubble.classList.add("sticker");bubble.textContent=m.text}
    else bubble.append(document.createTextNode(m.text||""));
   }
-  const meta=document.createElement("div");meta.className="meta";meta.textContent=(m.createdAt?new Date(m.createdAt).toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"}):"Đang gửi")+(m.edited?" · Đã sửa":"");
+  const meta=document.createElement("div");meta.className="meta";
+  meta.textContent=(m.createdAt?new Date(m.createdAt).toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"}):"Đang gửi")+(m.edited?" · Đã sửa":"");
   const actions=document.createElement("div");actions.className="actions";
-  const react=document.createElement("button");react.textContent="❤️";react.onclick=async()=>{
-   const r=dbref(roomPath+"/reactions/"+id+"/"+user.uid),s=await get(r);await set(r,!s.val());
-  };actions.append(react);
   if(!m.recalled){
-   const reply=document.createElement("button");reply.textContent="↩ Trả lời";reply.onclick=()=>{
-    replyTo={name:m.name,text:m.text};$("reply").textContent="Đang trả lời "+m.name+": "+m.text;$("reply").classList.remove("hidden");
-   };actions.append(reply);
+   const reply=document.createElement("button");reply.textContent="↩ Trả lời";
+   reply.onclick=()=>{replyTo={name:m.name,text:m.text};$("reply").textContent="Đang trả lời "+m.name+": "+m.text;$("reply").classList.remove("hidden")};
+   actions.append(reply);
    if(mine){
-    const edit=document.createElement("button");edit.textContent="✏️ Sửa";edit.onclick=async()=>{
+    const edit=document.createElement("button");edit.textContent="✏️ Sửa";
+    edit.onclick=async()=>{
      if(m.type!=="text")return toast("Chỉ sửa tin nhắn chữ");
-     const v=prompt("Nội dung mới",m.text);if(v?.trim())await update(dbref(roomPath+"/messages/"+id),{text:v.trim(),edited:true});
+     const v=prompt("Nội dung mới",m.text);if(v?.trim())await update(r(roomPath+"/messages/"+id),{text:v.trim(),edited:true});
     };actions.append(edit);
-    const recall=document.createElement("button");recall.textContent="Thu hồi";recall.onclick=async()=>{
-     if(confirm("Thu hồi tin nhắn?"))await update(dbref(roomPath+"/messages/"+id),{text:"",recalled:true});
-    };actions.append(recall);
+    const recall=document.createElement("button");recall.textContent="Thu hồi";
+    recall.onclick=async()=>{if(confirm("Thu hồi tin nhắn?"))await update(r(roomPath+"/messages/"+id),{text:"",recalled:true})};
+    actions.append(recall);
    }
-   const pin=document.createElement("button");pin.textContent="📌 Ghim";pin.onclick=async()=>{
-    await set(dbref(roomPath+"/pinned"),{id,text:m.text,name:m.name});toast("Đã ghim");
-   };actions.append(pin);
+   const react=document.createElement("button");react.textContent="❤️";
+   react.onclick=async()=>{const x=r(roomPath+"/reactions/"+id+"/"+user.uid),s=await get(x);await set(x,!s.val())};
+   actions.append(react);
   }
   box.append(sender,bubble,meta,actions);area.append(box);
  });
- if(wasBottom)area.scrollTop=area.scrollHeight;
+ if(bottom)area.scrollTop=area.scrollHeight;
 }
 
 /* STICKERS */
 $("stickerBtn").onclick=()=>{
  const s=$("stickers");s.style.display=s.style.display==="grid"?"none":"grid";
 };
-document.querySelectorAll("#stickers button").forEach(b=>b.onclick=async()=>{
- await send(b.textContent,"sticker");$("stickers").style.display="none";
-});
+document.querySelectorAll("#stickers button").forEach(b=>b.onclick=async()=>{await send(b.textContent,"sticker");$("stickers").style.display="none"});
 
 /* UPLOAD */
 async function upload(file){
  if(file.size>8*1024*1024)throw Error("Tệp tối đa 8MB");
- const r=sr(storage,"uploads/"+ROOM+"/"+user.uid+"/"+Date.now()+"_"+file.name);
- await uploadBytes(r,file);return getDownloadURL(r);
+ const x=sr(storage,"uploads/"+ROOM+"/"+user.uid+"/"+Date.now()+"_"+file.name);
+ await uploadBytes(x,file);return getDownloadURL(x);
 }
 $("imageBtn").onclick=()=>$("imageFile").click();
 $("imageFile").onchange=async e=>{
  const f=e.target.files[0];if(!f)return;
- try{const url=await upload(f);await send(url,"image");toast("Đã gửi ảnh")}
- catch(err){toast(err.message)}e.target.value="";
+ try{await send(await upload(f),"image");toast("Đã gửi ảnh")}
+ catch(err){toast(err.message)}
+ e.target.value="";
 };
 
 /* VOICE */
 $("voiceBtn").onclick=async()=>{
  if(recorder?.state==="recording"){recorder.stop();$("voiceBtn").textContent="🎤";return}
  try{
-  const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+  const stream=await requestDevices(true,false);
   audioChunks=[];recorder=new MediaRecorder(stream);
   recorder.ondataavailable=e=>{if(e.data.size)audioChunks.push(e.data)};
   recorder.onstop=async()=>{
    stream.getTracks().forEach(t=>t.stop());
-   try{const url=await upload(new Blob(audioChunks,{type:recorder.mimeType}));await send(url,"voice");toast("Đã gửi voice")}
+   try{await send(await upload(new Blob(audioChunks,{type:recorder.mimeType})),"voice");toast("Đã gửi voice")}
    catch(e){toast(e.message)}
   };
   recorder.start();$("voiceBtn").textContent="⏹";
-  setTimeout(()=>{if(recorder?.state==="recording")recorder.stop();$("voiceBtn").textContent="🎤"},30000);
- }catch(e){toast("Cần quyền microphone và HTTPS")}
+  setTimeout(()=>{if(recorder?.state==="recording"){recorder.stop();$("voiceBtn").textContent="🎤"}},30000);
+ }catch(e){toast("Cần cấp quyền microphone: "+e.message)}
 };
 
-/* THEMES */
+/* THEME */
 function color(c){$("messages").style.background=c;$("messages").style.backgroundImage="none";localStorage.setItem("omColor",c);localStorage.removeItem("omWallpaper")}
 document.querySelectorAll("[data-color]").forEach(b=>b.onclick=()=>color(b.dataset.color));
-$("settingsBtn").onclick=()=>{
- const p=$("themePanel");p.style.display=p.style.display==="block"?"none":"block";
-};
+$("settingsBtn").onclick=()=>{const p=$("themePanel");p.style.display=p.style.display==="block"?"none":"block"};
 $("wallpaper").onchange=async e=>{
  const f=e.target.files[0];if(!f)return;
  try{const url=await upload(f);$("messages").style.backgroundImage=`url("${url}")`;localStorage.setItem("omWallpaper",url);localStorage.removeItem("omColor")}
  catch(err){toast(err.message)}
 };
-$("reset").onclick=()=>color("#f3f7fc");
+$("reset").onclick=()=>color("#080d19");
 if(localStorage.getItem("omColor"))color(localStorage.getItem("omColor"));
 if(localStorage.getItem("omWallpaper"))$("messages").style.backgroundImage=`url("${localStorage.getItem("omWallpaper")}")`;
 
-/* RTC CALLING */
+/* CALLING */
 const rtc={iceServers:[{urls:"stun:stun.l.google.com:19302"}]};
 function clearRTC(){callUnsubs.forEach(f=>f());callUnsubs=[]}
 function peerSetup(id,initiator){
@@ -417,36 +415,39 @@ function peerSetup(id,initiator){
  peer.ontrack=e=>{$("remote").srcObject=e.streams[0]};
  const local=initiator?"callerCandidates":"calleeCandidates";
  const remote=initiator?"calleeCandidates":"callerCandidates";
- peer.onicecandidate=e=>{if(e.candidate)set(push(dbref(roomPath+"/calls/"+id+"/"+local)),e.candidate.toJSON())};
- callUnsubs.push(onValue(dbref(roomPath+"/calls/"+id+"/"+remote),s=>{
+ peer.onicecandidate=e=>{if(e.candidate)set(push(r(roomPath+"/calls/"+id+"/"+local)),e.candidate.toJSON())};
+ callUnsubs.push(onValue(r(roomPath+"/calls/"+id+"/"+remote),s=>{
   s.forEach(c=>peer.addIceCandidate(new RTCIceCandidate(c.val())).catch(()=>{}));
  }));
 }
 async function startCall(video=false){
  if(!window.isSecureContext)return toast("Cuộc gọi cần HTTPS");
  try{
-  localStream=await navigator.mediaDevices.getUserMedia({audio:true,video});
+  await endCall(false);
+  localStream=await requestDevices(true,video);
   micOff=false;camOff=!video;
   $("local").srcObject=localStream;$("call").style.display="flex";
   $("callTitle").textContent=video?"Đang gọi video":"Đang gọi thoại";
-  const r=push(dbref(roomPath+"/calls")),id=r.key;
+  const x=push(r(roomPath+"/calls")),id=x.key;
   peerSetup(id,true);
   const offer=await peer.createOffer();await peer.setLocalDescription(offer);
-  await set(r,{caller:user.uid,callerName:profile.displayName,offer:{type:offer.type,sdp:offer.sdp},status:"ringing",createdAt:serverTimestamp()});
-  callUnsubs.push(onValue(dbref(roomPath+"/calls/"+id+"/answer"),async s=>{
+  await set(x,{caller:user.uid,callerName:profile.displayName,offer:{type:offer.type,sdp:offer.sdp},status:"ringing",createdAt:serverTimestamp()});
+  callUnsubs.push(onValue(r(roomPath+"/calls/"+id+"/answer"),async s=>{
    if(s.val()&&peer?.signalingState==="have-local-offer")await peer.setRemoteDescription(s.val());
   }));
  }catch(e){toast("Không gọi được: "+e.message);await endCall(false)}
 }
 $("callBtn").onclick=()=>startCall(false);
 $("videoBtn").onclick=()=>startCall(true);
+
 function listenCalls(){
  if(callListener)callListener();
- callListener=onValue(dbref(roomPath+"/calls"),s=>{
+ callListener=onValue(r(roomPath+"/calls"),s=>{
   s.forEach(c=>{
    const v=c.val();
    if(v?.caller!==user.uid&&v?.status==="ringing"&&!activeCall){
-    activeCall=c.key;$("caller").textContent=(v.callerName||"Thành viên")+" đang gọi";$("incoming").style.display="flex";
+    activeCall=c.key;$("caller").textContent=(v.callerName||"Thành viên")+" đang gọi";
+    $("incoming").style.display="flex";
    }
   });
   if(activeCall){
@@ -457,25 +458,26 @@ function listenCalls(){
 }
 $("accept").onclick=async()=>{
  try{
-  const id=activeCall,s=await get(dbref(roomPath+"/calls/"+id)),c=s.val();
+  const id=activeCall,s=await get(r(roomPath+"/calls/"+id)),c=s.val();
   $("incoming").style.display="none";
-  localStream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
+  localStream=await requestDevices(true,false);
   $("local").srcObject=localStream;$("call").style.display="flex";
+  $("callTitle").textContent="Đang gọi thoại";
   peerSetup(id,false);await peer.setRemoteDescription(c.offer);
   const a=await peer.createAnswer();await peer.setLocalDescription(a);
-  await update(dbref(roomPath+"/calls/"+id),{answer:{type:a.type,sdp:a.sdp},status:"accepted",callee:user.uid});
- }catch(e){toast(e.message);endCall(false)}
+  await update(r(roomPath+"/calls/"+id),{answer:{type:a.type,sdp:a.sdp},status:"accepted",callee:user.uid});
+ }catch(e){toast("Không thể trả lời: "+e.message);await endCall(false)}
 };
 $("reject").onclick=async()=>{
- if(activeCall)await update(dbref(roomPath+"/calls/"+activeCall),{status:"rejected"});
+ if(activeCall)await update(r(roomPath+"/calls/"+activeCall),{status:"rejected"});
  $("incoming").style.display="none";activeCall=null;
 };
 async function endCall(remote=true){
  const id=activeCall;
- if(remote&&id)try{await update(dbref(roomPath+"/calls/"+id),{status:"ended"})}catch{}
+ if(remote&&id)try{await update(r(roomPath+"/calls/"+id),{status:"ended"})}catch{}
  clearRTC();if(peer)peer.close();peer=null;
- if(localStream)localStream.getTracks().forEach(t=>t.stop());
- localStream=null;$("local").srcObject=null;$("remote").srcObject=null;
+ if(localStream){localStream.getTracks().forEach(t=>t.stop());localStream=null}
+ $("local").srcObject=null;$("remote").srcObject=null;
  $("call").style.display="none";$("incoming").style.display="none";activeCall=null;
 }
 $("endCall").onclick=()=>endCall();
@@ -485,18 +487,27 @@ $("mute").onclick=()=>{
  $("mute").textContent=micOff?"🔇":"🎤";
 };
 $("camera").onclick=async()=>{
- if(!localStream)return toast("Camera chưa được bật trong cuộc gọi này");
- camOff=!camOff;localStream.getVideoTracks().forEach(t=>t.enabled=!camOff);
+ if(!localStream)return;
+ let track=localStream.getVideoTracks()[0];
+ if(!track){
+  try{
+   const s=await requestDevices(false,true);track=s.getVideoTracks()[0];
+   localStream.addTrack(track);
+   peer?.addTrack(track,localStream);
+   $("local").srcObject=localStream;camOff=false;
+  }catch(e){toast("Không bật được camera: "+e.message)}
+ }else{
+  camOff=!camOff;track.enabled=!camOff;
+ }
 };
 
-/* SCREEN SHARING */
+/* SCREEN SHARE */
 $("shareBtn").onclick=async()=>{
  if(!navigator.mediaDevices?.getDisplayMedia)return toast("Trình duyệt không hỗ trợ chia sẻ màn hình");
  try{
   screenStream=await navigator.mediaDevices.getDisplayMedia({video:true,audio:false});
   $("shareVideo").srcObject=screenStream;$("shareView").style.display="flex";
   screenStream.getVideoTracks()[0].onended=stopShare;
-  toast("Đang chia sẻ màn hình trên thiết bị này");
  }catch(e){toast("Bạn đã hủy chia sẻ màn hình")}
 };
 function stopShare(){
@@ -508,12 +519,11 @@ $("stopShare").onclick=stopShare;
 /* LOGOUT */
 $("logout").onclick=async()=>{
  try{
-  await remove(dbref(roomPath+"/presence/"+user.uid));
+  await remove(r(roomPath+"/presence/"+user.uid));
   stopShare();await endCall();await signOut(auth);
  }catch(e){toast(e.message)}
 };
 $("profile").onclick=()=>toast(profile.displayName+" · @"+profile.username);
-window.addEventListener("beforeunload",()=>{});
 </script>
 </body>
 </html>
